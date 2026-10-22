@@ -6,6 +6,10 @@ El navegador envía el formulario al servidor, el servidor calcula la conversió
 Hecha solo con la librería estándar de Python (`http.server`, sin frameworks ni dependencias), como parte del
 [proyecto Unit Converter de roadmap.sh](https://roadmap.sh/projects/unit-converter).
 
+<p align="center">
+  <img src="docs/captura-formulario.png" alt="Formulario del conversor de unidades" width="420">
+</p>
+
 ## Requisitos
 
 - Python 3 (probado con Python 3.15)
