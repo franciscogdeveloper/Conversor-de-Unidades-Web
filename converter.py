@@ -1,3 +1,5 @@
+import math
+
 CATEGORIES = {
     "length": "Longitud",
     "weight": "Peso",
@@ -87,3 +89,42 @@ def convert_temperature(value, from_unit, to_unit):
     if celsius < ABSOLUTE_ZERO_C:
         raise ConversionError("La temperatura no puede ser menor que el cero absoluto (-273,15 °C).")
     return from_celsius(celsius, to_unit)
+
+
+# Convierte el texto ingresado en número; acepta coma decimal (1,5)
+def parse_value(text):
+    try:
+        value = float(text.strip().replace(",", "."))
+    except ValueError:
+        raise ConversionError("Ingresa un número válido.")
+
+    # float() acepta "nan" e "inf", pero no son medidas válidas
+    if not math.isfinite(value):
+        raise ConversionError("Ingresa un número válido.")
+    return value
+
+
+# Valida la categoría y las unidades, y convierte el valor
+def convert(category, value, from_unit, to_unit):
+    if category not in UNITS:
+        raise ConversionError(f"Categoría desconocida: {category}.")
+
+    units = UNITS[category]
+    if from_unit not in units or to_unit not in units:
+        raise ConversionError("Selecciona unidades válidas.")
+
+    if category == "temperature":
+        result = convert_temperature(value, from_unit, to_unit)
+    else:
+        result = convert_by_factor(category, value, from_unit, to_unit)
+
+    if not math.isfinite(result):
+        raise ConversionError("El resultado es demasiado grande.")
+    return result
+
+
+# Muestra hasta 4 decimales sin ceros finales; los valores muy pequeños, en notación científica
+def format_number(number):
+    if number != 0 and abs(number) < 0.0001:
+        return f"{number:.4g}"
+    return f"{number:.4f}".rstrip("0").rstrip(".")
