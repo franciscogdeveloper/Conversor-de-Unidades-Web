@@ -57,3 +57,33 @@ class ConversionError(Exception):
 def convert_by_factor(category, value, from_unit, to_unit):
     factors = UNITS[category]
     return value * factors[from_unit] / factors[to_unit]
+
+
+# Temperatura mínima posible, en Celsius
+ABSOLUTE_ZERO_C = -273.15
+
+
+# Convierte cualquier escala a Celsius
+def to_celsius(value, unit):
+    if unit == "F":
+        return (value - 32) * 5 / 9
+    if unit == "K":
+        return value - 273.15
+    return value
+
+
+# Convierte de Celsius a cualquier escala
+def from_celsius(value, unit):
+    if unit == "F":
+        return value * 9 / 5 + 32
+    if unit == "K":
+        return value + 273.15
+    return value
+
+
+# Convierte pasando por Celsius; rechaza valores bajo el cero absoluto
+def convert_temperature(value, from_unit, to_unit):
+    celsius = to_celsius(value, from_unit)
+    if celsius < ABSOLUTE_ZERO_C:
+        raise ConversionError("La temperatura no puede ser menor que el cero absoluto (-273,15 °C).")
+    return from_celsius(celsius, to_unit)
