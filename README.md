@@ -7,7 +7,8 @@ Hecha solo con la librería estándar de Python (`http.server`, sin frameworks n
 [proyecto Unit Converter de roadmap.sh](https://roadmap.sh/projects/unit-converter).
 
 <p align="center">
-  <img src="docs/captura-formulario.png" alt="Formulario del conversor de unidades" width="420">
+  <img src="docs/captura-formulario.png" alt="Formulario de longitud" width="380">
+  <img src="docs/captura2-formulario.png" alt="Formulario de peso" width="380">
 </p>
 
 ## Requisitos
